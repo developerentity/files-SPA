@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import App from './App'
-import { getFiles } from './redux/filesReducer'
+import { getFiles, setFiles } from './redux/filesReducer'
 
 function ContainerApp() {
 
@@ -20,10 +20,26 @@ function ContainerApp() {
     }
   }, [files])
 
+  const sortBy = (sortType) => {
+    const tempArr = [...files]
+    tempArr.sort((a, b) => {
+      if (a[sortType] > b[sortType]) {
+        return 1
+      }
+      if (a[sortType] < b[sortType]) {
+        return -1
+      }
+      return 0
+    })
+    dispatch(setFiles(tempArr))
+  }
 
 
   return (
-    <App />
+    <App
+      files={files}
+      sortBy={sortBy}
+    />
   )
 }
 
