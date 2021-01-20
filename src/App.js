@@ -11,11 +11,12 @@ const App = props => {
   const toggle = () => setOpen(!dropdownOpen)
 
   const itemsList = files?.map(item => {
-    return (<div key={item.id} style={{ margin: '10px', border: '1px solid black' }}>
-      <div><b>{item.alt_description}</b></div>
-      <div>{item.created_at}</div>
-      <div>{item.updated_at}</div>
-    </div>)
+    return (
+      <div key={item.id} className='content-item'>
+        <div><b>{item.alt_description}</b></div>
+        <div>{item.created_at}</div>
+        <div>{item.updated_at}</div>
+      </div>)
   })
 
   return (
@@ -35,7 +36,9 @@ const App = props => {
           </ButtonDropdown>
         </div>
       </div>
-      {itemsList}
+      <div className='main-content'>
+        {itemsList}
+      </div>
     </div>
   );
 }
