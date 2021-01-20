@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 const App = props => {
 
-  const { files, sortBy } = props
+  const { files, sortBy, sortFlag } = props
+
+  const [dropdownOpen, setOpen] = useState(false)
+
+  const toggle = () => setOpen(!dropdownOpen)
 
   const itemsList = files?.map(item => {
     return (<div key={item.id} style={{ margin: '10px', border: '1px solid black' }}>
@@ -14,10 +19,22 @@ const App = props => {
   })
 
   return (
-    <div className="App">
-      <div><button onClick={() => sortBy('alt_description')}>имени</button></div>
-      <div><button onClick={() => sortBy('created_at')}>дате создания</button></div>
-      <div><button onClick={() => sortBy('updated_at')}>дате изменения</button></div>
+    <div className="main-wrap">
+      <div className='header'>
+        <h1>Files</h1>
+        <div className='dropdownWrap'>
+          <ButtonDropdown isOpen={dropdownOpen} toggle={toggle}>
+            <DropdownToggle color="primary" caret>
+              Сортировать по:
+          </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem className={sortFlag === 'alt_description' ? 'active' : ''} onClick={() => sortBy('alt_description')}>по имени</DropdownItem>
+              <DropdownItem className={sortFlag === 'created_at' ? 'active' : ''} onClick={() => sortBy('created_at')}>по дате создания</DropdownItem>
+              <DropdownItem className={sortFlag === 'updated_at' ? 'active' : ''} onClick={() => sortBy('updated_at')}>по дате изменения</DropdownItem>
+            </DropdownMenu>
+          </ButtonDropdown>
+        </div>
+      </div>
       {itemsList}
     </div>
   );
