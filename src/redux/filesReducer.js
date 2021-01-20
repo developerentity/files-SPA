@@ -1,6 +1,8 @@
 import { filesAPI } from "../api/api"
+import { sortBy } from "../util/sort"
 
 const SET_FILES = "SET_FILES"
+const SORT_FILES = "SORT_FILES"
 
 const initialState = {
     files: []
@@ -11,6 +13,9 @@ const filesReducer = (state = initialState, action) => {
         case SET_FILES:
             return { ...state, files: action.files }
 
+        case SORT_FILES:
+            return { ...state, files: sortBy(action.sort, [...state.files]) }
+
         default:
             return state
     }
@@ -18,6 +23,10 @@ const filesReducer = (state = initialState, action) => {
 
 export const setFiles = (files) => {
     return { type: SET_FILES, files }
+}
+
+export const sortFiles = (sort) => {
+    return { type: SORT_FILES, sort }
 }
 
 export const getFiles = () => {

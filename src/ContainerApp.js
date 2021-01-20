@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import App from './App'
-import { getFiles, setFiles } from './redux/filesReducer'
+import { getFiles, sortFiles } from './redux/filesReducer'
 
 function ContainerApp() {
 
@@ -14,26 +14,45 @@ function ContainerApp() {
     }
   }, [files, dispatch])
 
-  useEffect(() => {
-    if (files.length > 0) {
-      console.log(files)
-    }
-  }, [files])
-
-  const sortBy = (sortType) => {
-    const tempArr = [...files]
-    tempArr.sort((a, b) => {
-      if (a[sortType] > b[sortType]) {
-        return 1
-      }
-      if (a[sortType] < b[sortType]) {
-        return -1
-      }
-      return 0
-    })
-    dispatch(setFiles(tempArr))
+  const sortBy = (sort) => {
+    dispatch(sortFiles(sort))
+    setCookie('sortSettings', sort, 1209600)
   }
 
+  useEffect(() => {
+    const sorted = getCookie('sortSettings')
+    setTimeout(() => {
+      dispatch(sortFiles(sorted))
+    }, 100)
+  }, [dispatch])
+
+  const setCookie = (name, value, expires, path, domain, secure) => {
+    document.cookie = name + "=" + escape(value) +
+      ((expires) ? "; expires=" + expires : "") +
+      ((path) ? "; path=" + path : "") +
+      ((domain) ? "; domain=" + domain : "") +
+      ((secure) ? "; secure" : "")
+  }
+
+  const getCookie = name => {
+    let cookie = " " + document.cookie
+    let search = " " + name + "="
+    let setStr = null
+    let offset = 0
+    let end = 0
+    if (cookie.length > 0) {
+      offset = cookie.indexOf(search)
+      if (offset !== -1) {
+        offset += search.length;
+        end = cookie.indexOf(";", offset)
+        if (end === -1) {
+          end = cookie.length;
+        }
+        setStr = unescape(cookie.substring(offset, end))
+      }
+    }
+    return (setStr)
+  }
 
   return (
     <App

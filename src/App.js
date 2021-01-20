@@ -5,7 +5,7 @@ const App = props => {
 
   const { files, sortBy } = props
 
-  const itemsList = files.map(item => {
+  const itemsList = files?.map(item => {
     return (<div key={item.id} style={{ margin: '10px', border: '1px solid black' }}>
       <div><b>{item.alt_description}</b></div>
       <div>{item.created_at}</div>
