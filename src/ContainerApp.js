@@ -51,7 +51,7 @@ function ContainerApp() {
   useEffect(() => {
     setTimeout(() => {
       dispatch(sortFiles(sortFlag))
-    }, 200)
+    }, 1200)
   }, [dispatch, sortFlag])
 
   return (

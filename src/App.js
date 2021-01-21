@@ -12,10 +12,14 @@ const App = props => {
 
   const itemsList = files?.map(item => {
     return (
-      <div key={item.id} className='content-item'>
-        <div><b>{item.alt_description}</b></div>
-        <div>{item.created_at}</div>
-        <div>{item.updated_at}</div>
+      <div key={item.file} className='content-item'>
+        <div>Имя: {item.name.split('.')[0]}</div>
+        <hr />
+        <div>размер: <br /> {item.size_now}</div>
+        <hr />
+        <div>дата создания: {item.ctime}</div>
+        <hr />
+        <div>дата модификации: {item.mtime}</div>
       </div>)
   })
 
@@ -29,9 +33,9 @@ const App = props => {
               Сортировать по:
           </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem className={sortFlag === 'alt_description' ? 'active' : ''} onClick={() => sortBy('alt_description')}>по имени</DropdownItem>
-              <DropdownItem className={sortFlag === 'created_at' ? 'active' : ''} onClick={() => sortBy('created_at')}>по дате создания</DropdownItem>
-              <DropdownItem className={sortFlag === 'updated_at' ? 'active' : ''} onClick={() => sortBy('updated_at')}>по дате изменения</DropdownItem>
+              <DropdownItem className={sortFlag === 'name' ? 'active' : ''} onClick={() => sortBy('name')}>по имени</DropdownItem>
+              <DropdownItem className={sortFlag === 'size_now' ? 'active' : ''} onClick={() => sortBy('size_now')}>по размеру</DropdownItem>
+              <DropdownItem className={sortFlag === 'ctime' ? 'active' : ''} onClick={() => sortBy('ctime')}>по дате создания</DropdownItem>
             </DropdownMenu>
           </ButtonDropdown>
         </div>

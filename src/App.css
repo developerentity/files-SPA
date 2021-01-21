@@ -28,9 +28,14 @@
   border-radius: 10px;
 }
 
+.content-item hr {
+  margin: 0;
+}
+
 @media only screen and (max-width: 600px) {
   .main-content {
     grid-template-columns: repeat(2, 1fr);
+    padding              : 0;
   }
 
   .content-item {
