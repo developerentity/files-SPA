@@ -24,8 +24,8 @@
 .content-item {
   margin       : 1em;
   padding      : .5em;
-  border       : 1px solid #0461CB;
   border-radius: 10px;
+  background-color: #EEEFEE;
 }
 
 .content-item hr {
