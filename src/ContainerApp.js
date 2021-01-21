@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import App from './App'
-import { getFiles, sortFiles } from './redux/filesReducer'
+import { getFiles, setFiles } from './redux/filesReducer'
 
 function ContainerApp() {
 
@@ -38,21 +38,15 @@ function ContainerApp() {
 
   useEffect(() => {
     if (!files.length) {
-      dispatch(getFiles())
+      dispatch(getFiles(sortFlag))
     }
-  }, [files, dispatch])
+  }, [sortFlag, files, dispatch])
 
-  const sortBy = (sort) => {
-    dispatch(sortFiles(sort))
-    setCookie('sortSettings', sort, 1209600)
-    setSortFlag(sort)
+  const sortBy = (sortType) => {
+    dispatch(setFiles(files, sortType))
+    setCookie('sortSettings', sortType, 1209600)
+    setSortFlag(sortType)
   }
-
-  useEffect(() => {
-    setTimeout(() => {
-      dispatch(sortFiles(sortFlag))
-    }, 1200)
-  }, [dispatch, sortFlag])
 
   return (
     <App
